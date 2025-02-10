@@ -6,6 +6,22 @@ Agora é a sua hora de brilhar e construir um perfil de destaque na DIO! Explore
 
 Já dominamos o universo do desenvolvimento Python e projeto "Criando um Sistema Bancário com Python" oferece uma experiência prática de desenvolvimento de software financeiro. Os participantes construirão um sistema simplificado, abordando funcionalidades de transações e segurança. É uma oportunidade para aprimorar habilidades de programação Python e compreender conceitos financeiros e de segurança.
 
+## Implementações:
+
+- Menu de operações;
+- Exibição de saldo;
+- Depósito;
+- Saque; e
+- Extrato
+
+Seguindo as regras de negócio informadas (requisitos):
+
+- Limite máximo de 3 saques
+- Limite máximo de R$500,00 por saque
+- Não permitir saques ou depósitos com valores negativos
+- Registrar as operações e exibir na listagem de extrato
+
+
 ### Linguagens utilizadas
 
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
