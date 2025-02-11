@@ -1,11 +1,12 @@
+from time import sleep # Importando a função sleep do módulo time
 from Banco import Banco
 from Cliente import Cliente
 
 def menu(banco):
     print("Banco")
-    print("".center(60, "-"))
-    print(f"Cliente atual: {banco.cliente.nome if banco.cliente else 'Nenhum'}")
-    print("".center(60, "-"))
+    print("".center(80, "-"))
+    print(f"Cliente atual: {banco.cliente.nome if banco.cliente else 'Nenhum'}\tConta atual: {banco.conta.numero if banco.conta else 'Nenhuma'}")
+    print("".center(80, "-"))
     print("Menu:")
     print("1 - Adicionar cliente")
     print("2 - Listar clientes")
@@ -19,12 +20,24 @@ def menu(banco):
     op = input("Escolha uma opção: ")
     return op
 
+def carregando(total_sleep,cadencia,msg):
+    #input("\nEnter para continuar")
+    tempo = 0
+    msg
+    while tempo < total_sleep:
+        msg += "."
+        print(msg, end="\r")
+        sleep(cadencia)
+        tempo += cadencia
+    print("\n")
+
 
 def main():
     banco = Banco()
 
     #Fluxo de execução
     while True:
+        carregando(2,0.1,"Carregando")
         opt = menu(banco)
 
         match opt:
@@ -35,23 +48,39 @@ def main():
                 banco.listar_clientes()
 
             case "3": # Adicionar conta
-                cliente = banco.buscar_cliente("123.456.789-00")
-                banco.adicionar_conta(cliente1,"1234-5")
+                if not banco.cliente:
+                    print("Selecione um cliente")
+                    continue
+                banco.adicionar_conta(banco.cliente,"1234-5")
             
             case "4": # Listar contas
-                exibir_extrato()
+                banco.listar_contas()
             
             case "5": # Exibir saldo
-                banco.exibir_saldo(conta1)
+                if not banco.conta:
+                    print("\nSelecione uma conta!\n")
+                    continue
+                banco.exibir_saldo(banco.conta)
 
             case "6": # Deposito
-                banco.deposito(conta1, 1000)
+                if not banco.conta:
+                    print("\nSelecione uma conta!\n")
+                    continue
+                banco.deposito(banco.conta, 1000)
 
             case "7": # Saque
-                banco.saque(conta1, 11)
+                if not banco.conta:
+                    print("\nSelecione uma conta!\n")
+                    continue
+                banco.saque(banco.conta, 11)
             
             case "8": # Extrato
-                banco.exibir_extrato(conta1)
+                if not banco.conta:
+                    print("\nSelecione uma conta!\n")
+                    continue
+                banco.exibir_extrato(banco.conta)
+                input("Pressione Enter para continuar...")
+                
 
             case "0": # Sair
                 print("Sair")

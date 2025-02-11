@@ -7,8 +7,9 @@ class Banco:
         self.clientes = []
         self.contas = []
         self.MAXSAQUE = 500
-        self.MAXOP = 3
+        self.MAXOP = 10
         self.cliente = None
+        self.conta = None
 
     def adicionar_cliente(self, nome, cpf):
         self.cliente = Cliente(nome, cpf)
@@ -21,9 +22,10 @@ class Banco:
             print(f"{cliente.cpf}\t{cliente.nome}")
 
     def adicionar_conta(self, cliente,numero):
-        conta = Conta(cliente,numero)
-        self.contas.append(conta)
-        return conta
+        self.conta = Conta(cliente,numero)
+        self.cliente = cliente
+        self.contas.append(self.conta)
+        return self.conta
 
     def listar_contas(self):
         print("Contas:")
@@ -76,10 +78,11 @@ class Banco:
 
     def exibir_extrato(self, conta):
         print("Extrato:".center(80,"#"))
-        print(f"Nome: {conta.cliente.nome} \tConta: {conta.numero}")
+        print(f"Conta: {conta.numero}\tCPF: {conta.cliente.cpf}\tNome: {conta.cliente.nome}")
         print("".center(80,"-"))
         for item in conta.extrato:
             print(f"{item["datahora"].strftime("%d/%m/%Y %H:%M:%S")}\t{item["valor"]:.2f}\t{item["tipo"]}")
+        print("".center(80,"-"))
         self.exibir_saldo(conta)
         print("".center(80,"#"))
 
