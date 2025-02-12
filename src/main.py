@@ -1,15 +1,15 @@
 from time import sleep # Importando a função sleep do módulo time
 from Banco import Banco
-from Cliente import Cliente
+#from Cliente import Cliente
 
 def menu(banco):
     print("Banco")
     print("".center(80, "-"))
-    print(f"Cliente atual: {banco.cliente.nome if banco.cliente else 'Nenhum'}\tConta atual: {banco.conta.numero if banco.conta else 'Nenhuma'}")
+    print(f"Cliente atual: {banco.cliente.nome if banco.cliente else 'Nenhum'}\tConta atual: {banco.conta.numero if banco.conta else ''}-{banco.conta.agencia if banco.conta else ''}")
     print("".center(80, "-"))
     print("Menu:")
     print("1 - Adicionar cliente")
-    print("2 - Listar clientes")
+    print("2 - Selecionar Conta")
     print("3 - Adicionar conta")
     print("4 - Listar contas")
     print("5 - Exibir saldo")
@@ -35,6 +35,11 @@ def carregando(total_sleep,cadencia,msg):
 def main():
     banco = Banco()
 
+    def add_conta():
+        agencia = "1".zfill(2)
+        conta = str(len(banco.contas) + 1).zfill(4)
+        banco.adicionar_conta(agencia,conta)
+        
     #Fluxo de execução
     while True:
         carregando(2,0.1,"Carregando")
@@ -42,16 +47,25 @@ def main():
 
         match opt:
             case "1": # Adicionar cliente
-                banco.adicionar_cliente("Fulano", "123.456.789-00")
+                nome = input("Informe o nome do cliente:")
+                cpf = input("Informe o CPF do cliente:")
+                banco.adicionar_cliente(nome, cpf)
+                add_conta()
 
-            case "2": # Listar clientes
-                banco.listar_clientes()
+
+            case "2": # Selecionar conta
+                if not banco.cliente:
+                    print("Selecione uma Conta")
+                    continue
+                banco.listar_contas()
+                conta = input("Informe o número da conta:")
+                banco.selecionar_conta(conta)
 
             case "3": # Adicionar conta
                 if not banco.cliente:
                     print("Selecione um cliente")
                     continue
-                banco.adicionar_conta(banco.cliente,"1234-5")
+                add_conta()
             
             case "4": # Listar contas
                 banco.listar_contas()
@@ -66,13 +80,23 @@ def main():
                 if not banco.conta:
                     print("\nSelecione uma conta!\n")
                     continue
-                banco.deposito(banco.conta, 1000)
+                try:    
+                    valor = float(input("Informe o valor do depósito:"))
+                    banco.deposito(banco.conta, valor)
+                except ValueError:
+                    print("Valor invàlido!")
 
             case "7": # Saque
                 if not banco.conta:
                     print("\nSelecione uma conta!\n")
                     continue
-                banco.saque(banco.conta, 11)
+                try:
+                    valor = float(input("Informe o valor do saque:"))
+                    banco.saque(banco.conta,valor)
+                except ValueError:
+                    print("Valor invàlido!")
+
+                
             
             case "8": # Extrato
                 if not banco.conta:
@@ -81,7 +105,6 @@ def main():
                 banco.exibir_extrato(banco.conta)
                 input("Pressione Enter para continuar...")
                 
-
             case "0": # Sair
                 print("Sair")
                 break
