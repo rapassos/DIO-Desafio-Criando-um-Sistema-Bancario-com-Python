@@ -12,9 +12,9 @@ def menu(banco):
     print("".center(80, "-"))
     print("Menu:")
     print("1 - Adicionar cliente")
-    print("2 - Selecionar Conta")
+    print("2 - Listar/Selecionar cliente")
     print("3 - Adicionar conta")
-    print("4 - Listar contas")
+    print("4 - Selecionar Conta")
     print("5 - Exibir saldo")
     print("6 - Deposito")
     print("7 - Saque")
@@ -58,14 +58,10 @@ def main():
                 banco.adicionar_cliente(nome, cpf)
                 add_conta()
 
-
-            case "2": # Selecionar conta
-                if not banco.cliente:
-                    print("Selecione uma Conta")
-                    continue
-                banco.listar_contas()
-                conta = input("Informe o número da conta:")
-                banco.selecionar_conta(conta)
+            case "2": # Listar/Selecionar cliente
+                banco.listar_clientes()
+                cpf = input("Informe o CPF do cliente:")
+                banco.selecionar_clientes(cpf)
 
             case "3": # Adicionar conta
                 if not banco.cliente:
@@ -73,9 +69,14 @@ def main():
                     continue
                 add_conta()
             
-            case "4": # Listar contas
+            case "4": # Listar/Selecionar conta
+                if not banco.cliente:
+                    print("Selecione uma Conta")
+                    continue
                 banco.listar_contas()
-            
+                conta = input("Informe o número da conta:")
+                banco.selecionar_conta(conta)
+
             case "5": # Exibir saldo
                 if not banco.conta:
                     print("\nSelecione uma conta!\n")
@@ -101,8 +102,6 @@ def main():
                     banco.saque(banco.conta,valor)
                 except ValueError:
                     print("Valor invàlido!")
-
-                
             
             case "8": # Extrato
                 if not banco.conta:
@@ -118,26 +117,6 @@ def main():
             case _:
                 print("Opção inválida")
                 carregando(2,0.1,"Carregando")
-
-
-    # cliente1 = banco.adicionar_cliente("Fulano", "123.456.789-00")
-    # cliente2 = banco.adicionar_cliente("Beltrano", "111.111.111-81")
-    # # banco.listar_clientes()
-    # conta1 = banco.adicionar_conta(cliente1,"1234-5")
-    # conta2 = banco.adicionar_conta(cliente2,"1234-6")
-    # # banco.listar_contas()
-
-    # banco.deposito(conta1, 1000)
-    # banco.saque(conta1, 11)
-
-
-    # banco.deposito(conta2, 9999)
-    # banco.saque(conta2, 557.5)
-
-    # # banco.exibir_saldo(conta1)
-    # # banco.exibir_saldo(conta2)
-
-    # banco.exibir_extrato(conta2)
 
 if __name__ == '__main__':
     main()

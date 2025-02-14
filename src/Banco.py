@@ -23,14 +23,23 @@ class Banco:
                 return False
         return True
     
-    def selecionar_conta(self, numero_conta):
-        for conta in self.contas:
-            if f"{conta.numero}-{conta.agencia}" == numero_conta:
-                self.conta = conta
-                self.cliente = conta.cliente
-                return conta
-        print("Conta não encontrada")
-        return
+    def listar_clientes(self):
+        print("Clientes:")
+        for cliente in self.clientes:
+            print(f"{cliente.cpf}\t{cliente.nome}")
+
+    def selecionar_clientes(self, cpf):
+        encontrado = False
+        for cliente in self.clientes:
+            if cliente.cpf == cpf:                
+                self.cliente = cliente
+                for conta in self.contas:
+                    if conta.cliente == cliente:
+                        self.selecionar_conta(f"{conta.numero}-{conta.agencia}")
+                        encontrado = True
+                        break
+        if not encontrado:
+            print("Cliente não encontrado")
 
     def adicionar_conta(self,agencia,numero):
         self.conta = Conta(self.cliente,agencia,numero)
@@ -42,6 +51,14 @@ class Banco:
         for conta in self.contas:
             print(f"{conta.numero}-{conta.agencia}\t{conta.cliente.cpf}\t{conta.cliente.nome}")
 
+    def selecionar_conta(self, numero_conta):
+        for conta in self.contas:
+            if f"{conta.numero}-{conta.agencia}" == numero_conta:
+                self.conta = conta
+                self.cliente = conta.cliente
+                return conta
+        print("Conta não encontrada")
+        return
 
     def exibir_saldo(self, conta):
         # conta = self.buscar_conta(numero_conta)
