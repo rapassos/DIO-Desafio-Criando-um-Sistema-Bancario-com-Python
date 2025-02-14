@@ -8,7 +8,7 @@ def menu(banco):
     print("".center(80, "#"))
     if banco.conta:
         saldo = f"{banco.conta.saldo:.2f}"
-    print(f"Cliente atual: {banco.cliente.nome if banco.cliente else 'Nenhum'}\t{'Conta atual: '+banco.conta.numero+'-'+banco.conta.agencia if banco.conta else ''}\t{'Saldo: R$'+saldo if banco.conta else ''}")
+    print(f"{'Conta atual: '+banco.conta.numero+'-'+banco.conta.agencia+'\t' if banco.conta else ''}{'Saldo: R$'+saldo+'\t' if banco.conta else ''}Cliente: {banco.cliente.nome if banco.cliente else 'Nenhum'}")
     print("".center(80, "-"))
     print("Menu:")
     print("1 - Adicionar cliente")
@@ -51,6 +51,9 @@ def main():
         match opt:
             case "1": # Adicionar cliente
                 nome = input("Informe o nome do cliente:")
+                if not nome:
+                    print("Nome inválido!")
+                    continue
                 cpf = input("Informe o CPF do cliente:")
                 if not banco.busca_cpf(cpf):
                     print("CPF já cadastrado!")
@@ -116,7 +119,6 @@ def main():
 
             case _:
                 print("Opção inválida")
-                carregando(2,0.1,"Carregando")
 
 if __name__ == '__main__':
     main()
