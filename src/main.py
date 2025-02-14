@@ -52,6 +52,9 @@ def main():
             case "1": # Adicionar cliente
                 nome = input("Informe o nome do cliente:")
                 cpf = input("Informe o CPF do cliente:")
+                if not banco.busca_cpf(cpf):
+                    print("CPF já cadastrado!")
+                    continue
                 banco.adicionar_cliente(nome, cpf)
                 add_conta()
 

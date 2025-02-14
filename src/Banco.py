@@ -16,6 +16,12 @@ class Banco:
         self.cliente = Cliente(nome, cpf)
         self.clientes.append(self.cliente)
         return self.cliente
+
+    def busca_cpf(self, cpf):
+        for cliente in self.clientes:
+            if cliente.cpf == cpf:
+                return False
+        return True
     
     def selecionar_conta(self, numero_conta):
         for conta in self.contas:
@@ -35,6 +41,7 @@ class Banco:
         print("Contas:")
         for conta in self.contas:
             print(f"{conta.numero}-{conta.agencia}\t{conta.cliente.cpf}\t{conta.cliente.nome}")
+
 
     def exibir_saldo(self, conta):
         # conta = self.buscar_conta(numero_conta)
