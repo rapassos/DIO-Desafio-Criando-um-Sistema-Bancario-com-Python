@@ -3,9 +3,12 @@ from Banco import Banco
 #from Cliente import Cliente
 
 def menu(banco):
-    print("Banco")
-    print("".center(80, "-"))
-    print(f"Cliente atual: {banco.cliente.nome if banco.cliente else 'Nenhum'}\tConta atual: {banco.conta.numero if banco.conta else ''}-{banco.conta.agencia if banco.conta else ''}")
+    print("".center(80, "#"))
+    print(banco.nome.center(80))
+    print("".center(80, "#"))
+    if banco.conta:
+        saldo = f"{banco.conta.saldo:.2f}"
+    print(f"Cliente atual: {banco.cliente.nome if banco.cliente else 'Nenhum'}\t{'Conta atual: '+banco.conta.numero+'-'+banco.conta.agencia if banco.conta else ''}\t{'Saldo: R$'+saldo if banco.conta else ''}")
     print("".center(80, "-"))
     print("Menu:")
     print("1 - Adicionar cliente")
@@ -33,7 +36,7 @@ def carregando(total_sleep,cadencia,msg):
 
 
 def main():
-    banco = Banco()
+    banco = Banco("Rapassos Bank")
 
     def add_conta():
         agencia = "1".zfill(2)

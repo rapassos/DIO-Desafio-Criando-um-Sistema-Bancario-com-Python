@@ -3,7 +3,8 @@ from Cliente import Cliente
 from datetime import datetime
 
 class Banco:
-    def __init__(self):
+    def __init__(self, nome):
+        self.nome = nome
         self.clientes = []
         self.contas = []
         self.MAXSAQUE = 500
