@@ -93,7 +93,7 @@ git clone https://github.com/rapassos/DIO-Desafio-Criando-um-Sistema-Bancario-co
 cd DIO-Desafio-Criando-um-Sistema-Bancario-com-Python
 
 # Execute a versão principal
-python src/sistema_bancario.py
+python .\src\sistema_bancario.py
 
 # Ou execute versões anteriores
 python v1.1/sistema_bancario_v1.1.py
@@ -107,58 +107,65 @@ python v0.1/sistema_bancario_v0.1.py
 ### Menu Principal
 
 ```
-========== SISTEMA BANCÁRIO ==========
-
-[d]  Depositar
-[s]  Saque
-[e]  Extrato
-[nc] Nova conta
-[lc] Listar contas
-[nu] Novo usuário
-[sc] Selecionar conta
-[q]  Sair
-
-=> 
+################################################################################
+                                 Rapassos Bank
+################################################################################
+Cliente atual: Nenhum
+--------------------------------------------------------------------------------
+Menu:
+1 - Adicionar cliente
+2 - Listar/Selecionar cliente
+3 - Adicionar conta
+4 - Selecionar Conta
+5 - Exibir saldo
+6 - Deposito
+7 - Saque
+8 - Extrato
+0 - Sair
+Escolha uma opção:
 ```
 
 ### Fluxo de Operação
 
 ```bash
-# 1. Criar usuário
-=> nu
-CPF: 12345678900
-Nome: João Silva
-Data de nascimento: 01/01/1990
-Endereço: Rua A, 123 - Centro - São Paulo/SP
+# 1. Adicionar cliente / conta
+Informe o nome do cliente:João Silva
+Informe o CPF do cliente:12345678900
 
-# 2. Criar conta para o usuário
-=> nc
-CPF do usuário: 12345678900
-✓ Conta criada: Agência 0001 - Conta 1
+# 2. Listar / selecionar cliente
+Informe o nome do cliente:João Silva
+Informe o CPF do cliente:12345678900
 
-# 3. Selecionar conta
-=> sc
-Número da conta: 1
-✓ Conta selecionada
+# 3. Adiciona conta
+(cria conta para o cliente selecionado)
 
-# 4. Depositar
-=> d
-Valor do depósito: 1000
-✓ Depósito de R$ 1000.00 realizado com sucesso!
+# 4. Lista / seleciona conta
+Contas:
+0001-01 12345678900     João Silva
+0002-01 12345678900     João Silva
+Informe o número da conta:0002-01
 
-# 5. Sacar
-=> s
-Valor do saque: 300
-✓ Saque de R$ 300.00 realizado com sucesso!
+# 5. Exibir saldo
+Seu saldo é de R$700.00
 
-# 6. Consultar extrato
-=> e
-========== EXTRATO ==========
-Depósito:    R$ 1000.00
-Saque:       R$ 300.00
----------------------------
-Saldo:       R$ 700.00
-============================
+# 6. Depositar
+Informe o valor do depósito:1000
+Depósito realizado com sucesso!
+
+# 7. Saque
+Informe o valor do saque:300
+Saque realizado com sucesso!
+
+# 8. Extrato
+####################################Extrato:####################################
+Conta: 0001-01  CPF: 12345678900        Nome: João Silva
+--------------------------------------------------------------------------------
+13/02/2026 07:26:20     1000.00 Depósito
+13/02/2026 07:26:57     300.00  Saque
+--------------------------------------------------------------------------------
+Seu saldo é de R$700.00
+################################################################################
+Pressione Enter para continuar...
 ```
 
 ---
@@ -168,17 +175,20 @@ Saldo:       R$ 700.00
 ### Classes Principais
 
 ```python
+class Banco:
+    - Gerencia as regras de negocio
+    - Parametriza o sistema
+    
 class Cliente:
     - Gerencia dados do usuário
-    - Associa contas ao cliente
 
 class Conta:
     - Controla saldo e histórico
-    - Valida operações de saque/depósito
 
-class Transacao:
+class Operacoes:
     - Registra operações realizadas
     - Mantém histórico completo
+    - Valida operações de saque/depósito
 ```
 
 ### Diagrama Conceitual
