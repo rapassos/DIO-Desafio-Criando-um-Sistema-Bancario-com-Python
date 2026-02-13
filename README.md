@@ -96,8 +96,8 @@ cd DIO-Desafio-Criando-um-Sistema-Bancario-com-Python
 python .\src\sistema_bancario.py
 
 # Ou execute versões anteriores
-python v1.1/sistema_bancario_v1.1.py
-python v0.1/sistema_bancario_v0.1.py
+python .\v1.1\sistema_bancario_v1.1.py
+python .\v0.1\sistema_bancario_v0.1.py
 ```
 
 ---
@@ -126,6 +126,9 @@ Escolha uma opção:
 ```
 
 ### Fluxo de Operação
+
+# Nota: O sistema mantém estado durante a sessão
+# Ao fechar, todos os dados são perdidos (sem persistência)
 
 ```bash
 # 1. Adicionar cliente / conta
